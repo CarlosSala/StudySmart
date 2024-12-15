@@ -35,7 +35,7 @@ fun TaskDatePicker(
                 }
             },
             content = {
-                DatePicker(
+            /*    DatePicker(
                     state = state,
                     dateValidator = { timestamp ->
                         val selectedDate = Instant
@@ -45,7 +45,7 @@ fun TaskDatePicker(
                         val currentDate = LocalDate.now(ZoneId.systemDefault())
                         selectedDate >= currentDate
                     }
-                )
+                )*/
             }
         )
     }
