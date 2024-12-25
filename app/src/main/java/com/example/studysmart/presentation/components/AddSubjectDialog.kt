@@ -28,8 +28,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.studysmart.domain.model.Subject
+
+@Preview
+@Composable
+fun AddSubjectDialogPreview(modifier: Modifier = Modifier) {
+    AddSubjectDialog(
+        isOpen = true,
+        title = "custom title",
+        selectedColors = emptyList(),
+        subjectName = "math",
+        goalHours = "10",
+        onColorChange = {},
+        onSubjectNameChange = {},
+        onGoalHoursChange = {},
+        onDismissRequest = {}
+    ) { }
+}
 
 @Composable
 fun AddSubjectDialog(
@@ -42,7 +59,7 @@ fun AddSubjectDialog(
     onSubjectNameChange: (String) -> Unit,
     onGoalHoursChange: (String) -> Unit,
     onDismissRequest: () -> Unit,
-    onConfirmButtonClick: () -> Unit
+    onConfirmButtonClick: () -> Unit,
 ) {
     var subjectNameError by rememberSaveable { mutableStateOf<String?>(null) }
     var goalHoursError by rememberSaveable { mutableStateOf<String?>(null) }
@@ -95,7 +112,7 @@ fun AddSubjectDialog(
                         label = { Text(text = "Subject Name") },
                         singleLine = true,
                         isError = subjectNameError != null && subjectName.isNotBlank(),
-                        supportingText = { Text(text = subjectNameError.orEmpty())}
+                        supportingText = { Text(text = subjectNameError.orEmpty()) }
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     OutlinedTextField(
@@ -104,7 +121,7 @@ fun AddSubjectDialog(
                         label = { Text(text = "Goal Study Hours") },
                         singleLine = true,
                         isError = goalHoursError != null && goalHours.isNotBlank(),
-                        supportingText = { Text(text = goalHoursError.orEmpty())},
+                        supportingText = { Text(text = goalHoursError.orEmpty()) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
                 }

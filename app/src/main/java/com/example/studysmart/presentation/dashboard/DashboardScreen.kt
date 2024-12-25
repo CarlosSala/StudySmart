@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -61,6 +62,7 @@ import com.example.studysmart.util.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 
@@ -98,6 +100,22 @@ fun DashboardScreenRoute(
     )
 }
 
+@Preview
+@Composable
+fun DashboardScreenPreview() {
+    val mockSnackBarEvent = MutableSharedFlow<SnackbarEvent>()
+
+    DashboardScreen(
+        state = DashboardState(),
+        tasks = emptyList(),
+        recentSessions = emptyList(),
+        onEvent = {},
+        snackbarEvent = mockSnackBarEvent,
+        onSubjectCardClick = {},
+        onTaskCardClick = {},
+        onStartSessionButtonClick = {}
+    )
+}
 
 @Composable
 private fun DashboardScreen(
@@ -108,7 +126,7 @@ private fun DashboardScreen(
     snackbarEvent: SharedFlow<SnackbarEvent>,
     onSubjectCardClick: (Int?) -> Unit,
     onTaskCardClick: (Int?) -> Unit,
-    onStartSessionButtonClick: () -> Unit
+    onStartSessionButtonClick: () -> Unit,
 ) {
 
     var isAddSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
@@ -238,7 +256,7 @@ private fun CountCardsSection(
     modifier: Modifier,
     subjectCount: Int,
     studiedHours: String,
-    goalHours: String
+    goalHours: String,
 ) {
     Row(modifier = modifier) {
         CountCard(
@@ -267,7 +285,7 @@ private fun SubjectCardsSection(
     subjectList: List<Subject>,
     emptyListText: String = "You don't have any subjects.\n Click the + button to add new subject.",
     onAddIconClicked: () -> Unit,
-    onSubjectCardClick: (Int?) -> Unit
+    onSubjectCardClick: (Int?) -> Unit,
 ) {
     Column(modifier = modifier) {
         Row(

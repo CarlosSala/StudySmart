@@ -33,11 +33,11 @@ class DashboardViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(DashboardState())
     val state = combine(
-        _state,
-        subjectRepository.getTotalSubjectCount(),
-        subjectRepository.getTotalGoalHours(),
-        subjectRepository.getAllSubjects(),
-        sessionRepository.getTotalSessionsDuration()
+        flow = _state,
+        flow2 = subjectRepository.getTotalSubjectCount(),
+        flow3 = subjectRepository.getTotalGoalHours(),
+        flow4 = subjectRepository.getAllSubjects(),
+        flow5 = sessionRepository.getTotalSessionsDuration()
     ) { state, subjectCount, goalHours, subjects, totalSessionDuration ->
         state.copy(
             totalSubjectCount = subjectCount,
